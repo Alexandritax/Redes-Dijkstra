@@ -40,7 +40,7 @@ class Graph():
             for v in range(self.V):
                 if self.graph[u][v] > 0 and sptSet[v] == False and dist[v] > dist[u] + self.graph[u][v]:
                     dist[v] = dist[u] + self.graph[u][v]
-        
+
         self.printSolucion(dist,src)
 
 
@@ -59,7 +59,7 @@ def main():
  
     with concurrent.futures.ProcessPoolExecutor() as executor:
         nodes = [i for i in range(9)]
-        results = executor.map(g.dijkstra,nodes)
+        executor.map(g.dijkstra,nodes)
 
 if __name__ == "__main__":
     main()
