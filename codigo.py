@@ -12,11 +12,11 @@ class Graph():
         self.graph = [[0 for columnas in range(vertices) 
         for lineas in range(vertices)]] #queremos una matriz cuadrada
 
-    def printSolucion(self,dist,src): #dist es la lista de distancias
+    ''' def printSolucion(self,dist,src): #dist es la lista de distancias
         print("\tDistancia a los vertices desde el nodo {}".format(src))
         for node in range(self.V):
             if(node != src):
-                print("\trouter" ,node, "--> ", dist[node])
+                print("\trouter" ,node, "--> ", dist[node]) '''
     
     def minDistance(self,dist,sptSet):
         min = sys.maxsize #peudo-infinito
@@ -48,7 +48,8 @@ class Graph():
                     # dist[u] + self.graph[u][v] < dist[v] busca que la nueva distancia sea menor a la distancia anterior.
                     dist[v] = dist[u] + self.graph[u][v]
 
-        self.printSolucion(dist,src) #imprime las distancias
+        #self.printSolucion(dist,src) #imprime las distancias
+        return dist
 
 
 def main():
@@ -67,9 +68,17 @@ def main():
  
     with concurrent.futures.ProcessPoolExecutor() as executor_LC: #crea un ejecutor de multi-procesos para el grafo de baja complejidad
         nodes = [i for i in range(nodos_LC)] 
-        executor_LC.map(Low_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
+        results = executor_LC.map(Low_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
         #la funcion .map permite sacar en el output en el Visual Studio de forma ordenada
         #sale desordenado en el terminal.
+
+        for idx,result in enumerate(results):
+            #print(f'{idx}|{result}')
+            print(f'Distancia a los vertices desde el nodo {idx}:')
+            for id,dist in enumerate(result):
+                if(dist!=0):
+                    print(f"\trouter {id}-->  {dist}")
+
     print("---------------------------------------------------\n")
     print("Grafo de alta complejidad:\n")
     nodos_HC = 11
@@ -88,7 +97,14 @@ def main():
 
     with concurrent.futures.ProcessPoolExecutor() as executor_HC: #crea un ejecutor de multi-procesos para el grafo de alta complejidad
         nodes = [i for i in range(nodos_HC)] 
-        executor_HC.map(High_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
+        results = executor_HC.map(High_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
+
+        for idx,result in enumerate(results):
+            #print(f'{idx}|{result}')
+            print(f'Distancia a los vertices desde el nodo {idx}:')
+            for id,dist in enumerate(result):
+                if(dist!=0):
+                    print(f"\trouter {id}-->  {dist}")
 
 if __name__ == "__main__":
     main()
