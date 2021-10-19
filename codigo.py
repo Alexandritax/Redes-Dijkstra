@@ -54,27 +54,40 @@ class Graph():
 
 def main():
     print("Grafo de baja complejidad:\n")
-    nodos_LC = 9
+    nodos_LC = 8
     Low_complexity = Graph(nodos_LC)
-    Low_complexity.graph = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
-           [4, 0, 8, 0, 0, 0, 0, 11, 0],
-           [0, 8, 0, 7, 0, 4, 0, 0, 2],
-           [0, 0, 7, 0, 9, 14, 0, 0, 0],
-           [0, 0, 0, 9, 0, 10, 0, 0, 0],
-           [0, 0, 4, 14, 10, 0, 2, 0, 0],
-           [0, 0, 0, 0, 0, 2, 0, 1, 6],
-           [8, 11, 0, 0, 0, 0, 1, 0, 7],
-           [0, 0, 2, 0, 0, 0, 6, 7, 0]
-           ]
+    Low_complexity.graph = [[0,3,4,0,0,0,0,0],
+    [3,0,0,5,6,0,0,0],
+    [4,0,0,0,2,3,0,0],
+    [0,5,0,0,0,0,0,0],
+    [0,6,2,0,0,0,4,5],
+    [0,0,3,0,0,0,0,0],
+    [0,0,0,0,4,0,0,1],
+    [0,0,0,0,5,0,1,0]
+    ]
  
-    with concurrent.futures.ProcessPoolExecutor() as executor: #crea un ejecutor de multi-procesos
+    with concurrent.futures.ProcessPoolExecutor() as executor_LC: #crea un ejecutor de multi-procesos para el grafo de baja complejidad
         nodes = [i for i in range(nodos_LC)] 
-        executor.map(Low_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
+        executor_LC.map(Low_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
     print("---------------------------------------------------\n")
     print("Grafo de alta complejidad:\n")
-    nodos_HC = 12
+    nodos_HC = 11
     High_complexity = Graph(nodos_HC)
-    
+    High_complexity.graph = [[0,6,5,0,0,0,0,0,0,0,0],
+    [6,0,0,4,3,0,0,0,0,0,0], 
+    [5,0,0,0,5,8,0,0,0,0,0], 
+    [0,4,0,0,0,0,0,0,0,0,0], 
+    [0,3,5,0,0,0,2,0,0,3,0],
+    [0,0,8,0,0,0,0,0,0,0,3],
+    [0,0,0,0,2,0,0,4,4,0,0],
+    [0,0,0,0,0,0,4,0,0,0,0],
+    [0,0,0,0,0,0,4,0,0,0,1],
+    [0,0,0,0,3,0,0,0,0,0,0],
+    [0,0,0,0,0,3,0,0,1,0,0]]
+
+    with concurrent.futures.ProcessPoolExecutor() as executor_HC: #crea un ejecutor de multi-procesos para el grafo de alta complejidad
+        nodes = [i for i in range(nodos_HC)] 
+        executor_HC.map(High_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
 
 if __name__ == "__main__":
     main()
