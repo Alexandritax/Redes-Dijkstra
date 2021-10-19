@@ -1,5 +1,5 @@
 import sys #permite usar la funcion maxsize para representar un numero enorme.
-import concurrent.futures
+import concurrent.futures 
 
 
 #definimos como fuente el nodo incial del grafo
@@ -17,7 +17,6 @@ class Graph():
         for node in range(self.V):
             if(node != src):
                 print("\trouter" ,node, "--> ", dist[node])
-        print("\n")
     
     def minDistance(self,dist,sptSet):
         min = sys.maxsize #peudo-infinito
@@ -69,6 +68,8 @@ def main():
     with concurrent.futures.ProcessPoolExecutor() as executor_LC: #crea un ejecutor de multi-procesos para el grafo de baja complejidad
         nodes = [i for i in range(nodos_LC)] 
         executor_LC.map(Low_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
+        #la funcion .map permite sacar en el output en el Visual Studio de forma ordenada
+        #sale desordenado en el terminal.
     print("---------------------------------------------------\n")
     print("Grafo de alta complejidad:\n")
     nodos_HC = 11
