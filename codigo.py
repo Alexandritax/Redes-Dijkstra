@@ -11,8 +11,8 @@ class Graph():
         self.graph = [[0 for columnas in range(vertices) 
         for lineas in range(vertices)]] #queremos una matriz cuadrada
 
-    def printSolucion(self,dist): #dist es la lista de distancias
-        print("Distancia de los vertices hacia la fuente")
+    def printSolucion(self,dist,src): #dist es la lista de distancias
+        print("Distancia de los vertices desde el nodo {}".format(src))
         for node in range(self.V):
             print("router" ,node, "--> ", dist[node])
     
@@ -41,11 +41,7 @@ class Graph():
                 if self.graph[u][v] > 0 and sptSet[v] == False and dist[v] > dist[u] + self.graph[u][v]:
                     dist[v] = dist[u] + self.graph[u][v]
         
-        self.printSolucion(dist)
-
-def findAllPaths(self):
-    #nothing yet implemented
-    pass
+        self.printSolucion(dist,src)
 
 
 def main():
