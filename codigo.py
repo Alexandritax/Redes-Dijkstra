@@ -77,7 +77,8 @@ def main():
             print(f'Distancia a los vertices desde el nodo {idx}:')
             for id,dist in enumerate(result):
                 if(dist!=0):
-                    print(f"\trouter {id}-->  {dist}")
+                    print(f"\trouter {id} --> {dist}")
+            print("\n")
 
     print("---------------------------------------------------\n")
     print("Grafo de alta complejidad:\n")
@@ -104,7 +105,8 @@ def main():
             print(f'Distancia a los vertices desde el nodo {idx}:')
             for id,dist in enumerate(result):
                 if(dist!=0):
-                    print(f"\trouter {id}-->  {dist}")
+                    print(f"\trouter {id} --> {dist}")
+            print("\n")
 
 if __name__ == "__main__":
     main()
