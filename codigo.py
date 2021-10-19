@@ -15,6 +15,7 @@ class Graph():
         print("Distancia de los vertices desde el nodo {}".format(src))
         for node in range(self.V):
             print("router" ,node, "--> ", dist[node])
+        print("\n")
     
     def minDistance(self,dist,sptSet):
         min = sys.maxsize
@@ -31,7 +32,7 @@ class Graph():
         dist[src] = 0
         sptSet = [False]*self.V
 
-        for cout in range(self.V):
+        for _ in range(self.V):
 
             u = self.minDistance(dist, sptSet)
             
@@ -63,4 +64,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
