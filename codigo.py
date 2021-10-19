@@ -55,7 +55,7 @@ class Graph():
 def main():
     print("Grafo de baja complejidad:\n")
     nodos_LC = 9
-    Low_complexity = Graph(nodos)
+    Low_complexity = Graph(nodos_LC)
     Low_complexity.graph = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
            [4, 0, 8, 0, 0, 0, 0, 11, 0],
            [0, 8, 0, 7, 0, 4, 0, 0, 2],
@@ -73,6 +73,8 @@ def main():
     print("---------------------------------------------------\n")
     print("Grafo de alta complejidad:\n")
     nodos_HC = 12
+    High_complexity = Graph(nodos_HC)
+    
 
 if __name__ == "__main__":
     main()
