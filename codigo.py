@@ -1,6 +1,6 @@
 import sys #permite usar la funcion maxsize para representar un numero enorme.
 import concurrent.futures 
-
+import numpy as np
 
 #definimos como fuente el nodo incial del grafo
 #los otros nodos los llamare vertices
@@ -56,15 +56,7 @@ def main():
     print("Grafo de baja complejidad:\n")
     nodos_LC = 8
     Low_complexity = Graph(nodos_LC)
-    Low_complexity.graph = [[0,3,4,0,0,0,0,0],
-    [3,0,0,5,6,0,0,0],
-    [4,0,0,0,2,3,0,0],
-    [0,5,0,0,0,0,0,0],
-    [0,6,2,0,0,0,4,5],
-    [0,0,3,0,0,0,0,0],
-    [0,0,0,0,4,0,0,1],
-    [0,0,0,0,5,0,1,0]
-    ]
+    Low_complexity.graph = np.loadtxt("Baja_complejidad.txt",skiprows=0).astype(int)
  
     with concurrent.futures.ProcessPoolExecutor() as executor_LC: #crea un ejecutor de multi-procesos para el grafo de baja complejidad
         nodes = [i for i in range(nodos_LC)] 
@@ -84,17 +76,7 @@ def main():
     print("Grafo de alta complejidad:\n")
     nodos_HC = 11
     High_complexity = Graph(nodos_HC)
-    High_complexity.graph = [[0,6,5,0,0,0,0,0,0,0,0],
-    [6,0,0,4,3,0,0,0,0,0,0], 
-    [5,0,0,0,5,8,0,0,0,0,0], 
-    [0,4,0,0,0,0,0,0,0,0,0], 
-    [0,3,5,0,0,0,2,0,0,3,0],
-    [0,0,8,0,0,0,0,0,0,0,3],
-    [0,0,0,0,2,0,0,4,4,0,0],
-    [0,0,0,0,0,0,4,0,0,0,0],
-    [0,0,0,0,0,0,4,0,0,0,1],
-    [0,0,0,0,3,0,0,0,0,0,0],
-    [0,0,0,0,0,3,0,0,1,0,0]]
+    High_complexity.graph = np.loadtxt("Alta_complejidad.txt",skiprows=0).astype(int)
 
     with concurrent.futures.ProcessPoolExecutor() as executor_HC: #crea un ejecutor de multi-procesos para el grafo de alta complejidad
         nodes = [i for i in range(nodos_HC)] 
