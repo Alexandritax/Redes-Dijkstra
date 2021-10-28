@@ -54,18 +54,18 @@ class Graph():
 
 
 def main():
-    start_l = time.time()
+    
     print("Grafo de baja complejidad:\n")
     nodos_LC = 8
     Low_complexity = Graph(nodos_LC)
     Low_complexity.graph = np.loadtxt("Baja_complejidad.txt",skiprows=0).astype(int)
     nodes = [i for i in range(nodos_LC)] 
+    start_l = time.time()
     with concurrent.futures.ProcessPoolExecutor() as executor_LC: #crea un ejecutor de multi-procesos para el grafo de baja complejidad
-        
         results = executor_LC.map(Low_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
         #la funcion .map permite sacar en el output en el Visual Studio de forma ordenada
         #sale desordenado en el terminal.
-
+    fin_l=time.time()
     for idx,result in enumerate(results):
         #print(f'{idx}|{result}')
         print(f'Distancia a los vertices desde el nodo {idx}:')
@@ -73,18 +73,19 @@ def main():
             if(dist!=0):
                 print(f"\trouter {id} --> {dist}")
         print("\n")
-    fin_l=time.time()
+    
     print(f'Time in low complexity = {fin_l-start_l}')
     print("---------------------------------------------------\n")
     print("Grafo de alta complejidad:\n")
-    start_h=time.time()
+    
     nodos_HC = 11
     High_complexity = Graph(nodos_HC)
     High_complexity.graph = np.loadtxt("Alta_complejidad.txt",skiprows=0).astype(int)
     nodes = [i for i in range(nodos_HC)] 
+    start_h=time.time()
     with concurrent.futures.ProcessPoolExecutor() as executor_HC: #crea un ejecutor de multi-procesos para el grafo de alta complejidad
         results = executor_HC.map(High_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
-
+    fin_h = time.time()
     for idx,result in enumerate(results):
             #print(f'{idx}|{result}')
         print(f'Distancia a los vertices desde el nodo {idx}:')
@@ -92,7 +93,8 @@ def main():
             if(dist!=0):
                 print(f"\trouter {id} --> {dist}")
         print("\n")
-    fin_h = time.time()
+    
     print(f'Time in high complexity = {fin_h-start_h}')
+    print(f'Total time {(fin_h-start_h)+(fin_l-start_l)}')
 if __name__ == "__main__":
     main()
