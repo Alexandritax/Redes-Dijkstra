@@ -64,7 +64,7 @@ class Graph():
 		self.printSolution(dist, src)
 
 
-# Driver program
+
 start_g = time.time()
 g = Graph(8)
 print("Grafo de baja complejidad:\n")
@@ -83,3 +83,4 @@ for k in range(h.V):
 fin_h = time.time()
 print(f'Time in high complexity = {fin_h-start_h}')
 # This code is contributed by Divyanshu Mehta
+# Se usa el codigo original para verificar la ejecucion del codigo via for.
