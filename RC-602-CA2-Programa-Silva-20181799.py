@@ -13,11 +13,6 @@ class Graph():
         self.graph = [[0 for columnas in range(vertices)] 
         for lineas in range(vertices)] #queremos una matriz cuadrada
 
-    def printSolucion(self,dist,src): #dist es la lista de distancias
-        print("\tDistancia a los vertices desde el nodo {}".format(src))
-        for node in range(self.V):
-            if(node != src):
-                print("\trouter" ,node, "--> ", dist[node])
     
     def minDistance(self,dist,sptSet):
         min = sys.maxsize #peudo-infinito
@@ -49,7 +44,6 @@ class Graph():
                     # dist[u] + self.graph[u][v] < dist[v] busca que la nueva distancia sea menor a la distancia anterior.
                     dist[v] = dist[u] + self.graph[u][v]
 
-        #self.printSolucion(dist,src) #imprime las distancias
         return dist
 
 
