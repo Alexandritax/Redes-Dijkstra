@@ -53,9 +53,7 @@ def printSolutions(results):
         print(f'Distancia a los vertices desde el nodo {idx}')
         print(f"size del array del resultado:{size}")
         for id,dist in enumerate(result):
-            
             if(dist!=0):
-                
                 print(f"\trouter {id} --> {dist}")
         print("\n")
         
