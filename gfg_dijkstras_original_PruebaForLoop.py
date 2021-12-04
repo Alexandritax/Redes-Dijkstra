@@ -15,6 +15,7 @@ class Graph():
 
 	def printSolution(self, dist, src):
 		print(f"Vertex t Distance from Source {src}")
+		print(f"size de los resultados: {sys.getsizeof(dist)}")
 		for node in range(self.V):
     			if(dist[node]!=0):
     				print("\trouter" ,node, "--> ", dist[node])
@@ -72,7 +73,8 @@ g.graph = np.loadtxt("Baja_complejidad.txt",skiprows=0).astype(int)
 for i in range(g.V):
 	g.dijkstra(i)
 fin_g= time.time()
-print(f'Time in low complexity = {fin_g-start_g}')
+low_time = fin_g-start_g
+print(f'Time in low complexity = {low_time}')
 print("---------------------------------------------------\n")
 print("Grafo de alta complejidad:\n")
 start_h=time.time()
@@ -81,6 +83,8 @@ h.graph = np.loadtxt("Alta_complejidad.txt",skiprows=0).astype(int)
 for k in range(h.V):
 	h.dijkstra(k)
 fin_h = time.time()
-print(f'Time in high complexity = {fin_h-start_h}')
+high_time = fin_h-start_h
+print(f'Time in high complexity = {high_time}')
+print(f"Tiempo total: {high_time+low_time}")
 # This code is contributed by Divyanshu Mehta
 # Se usa el codigo original para verificar la ejecucion del codigo via for.

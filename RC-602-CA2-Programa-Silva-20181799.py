@@ -46,49 +46,43 @@ class Graph():
 
         return dist
 
-
-def main():
-    
-    print("Grafo de baja complejidad:\n")
-    nodos_LC = 8
-    Low_complexity = Graph(nodos_LC)
-    Low_complexity.graph = np.loadtxt("Baja_complejidad.txt",skiprows=0).astype(int)
-    nodes = [i for i in range(nodos_LC)] 
-    start_l = time.time()
+def printSolutions(results):
+    for idx,result in enumerate(results):
+        size = sys.getsizeof(result)
+        #print(f'{idx}|{result}')
+        print(f'Distancia a los vertices desde el nodo {idx}')
+        print(f"size del array del resultado:{size}")
+        for id,dist in enumerate(result):
+            
+            if(dist!=0):
+                
+                print(f"\trouter {id} --> {dist}")
+        print("\n")
+        
+def Generalizacion(archivo,nodos):
+    newGraph = Graph(nodos)
+    newGraph.graph = np.loadtxt(archivo,skiprows=0).astype(int)
+    array_Nodes = [i for i in range(nodos)] 
+    start = time.time()
     with concurrent.futures.ProcessPoolExecutor() as executor_LC: #crea un ejecutor de multi-procesos para el grafo de baja complejidad
-        results = executor_LC.map(Low_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
+        results = executor_LC.map(newGraph.dijkstra,array_Nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
         #la funcion .map permite sacar en el output en el Visual Studio de forma ordenada
         #sale desordenado en el terminal.
-    fin_l=time.time()
-    for idx,result in enumerate(results):
-        #print(f'{idx}|{result}')
-        print(f'Distancia a los vertices desde el nodo {idx}:')
-        for id,dist in enumerate(result):
-            if(dist!=0):
-                print(f"\trouter {id} --> {dist}")
-        print("\n")
-    
-    print(f'Time in low complexity = {fin_l-start_l}')
+    fin=time.time()
+    newtime = fin - start
+    package=[results,newtime]
+    return package
+
+def main():
+    print("Grafo de baja complejidad:\n")
+    paquete_low=Generalizacion("Baja_complejidad.txt",8)
+    printSolutions(paquete_low[0])
+    print(f'Time in low complexity = {paquete_low[1]}')
     print("---------------------------------------------------\n")
     print("Grafo de alta complejidad:\n")
-    
-    nodos_HC = 11
-    High_complexity = Graph(nodos_HC)
-    High_complexity.graph = np.loadtxt("Alta_complejidad.txt",skiprows=0).astype(int)
-    nodes = [i for i in range(nodos_HC)] 
-    start_h=time.time()
-    with concurrent.futures.ProcessPoolExecutor() as executor_HC: #crea un ejecutor de multi-procesos para el grafo de alta complejidad
-        results = executor_HC.map(High_complexity.dijkstra,nodes) #ejecuta dijkstra en varios procesos para todos los nodos paralelamente.
-    fin_h = time.time()
-    for idx,result in enumerate(results):
-            #print(f'{idx}|{result}')
-        print(f'Distancia a los vertices desde el nodo {idx}:')
-        for id,dist in enumerate(result):
-            if(dist!=0):
-                print(f"\trouter {id} --> {dist}")
-        print("\n")
-    
-    print(f'Time in high complexity = {fin_h-start_h}')
-    print(f'Total time {(fin_h-start_h)+(fin_l-start_l)}')
+    paquete_high=Generalizacion("Alta_complejidad.txt",11)
+    printSolutions(paquete_high[0])
+    print(f'Time in high complexity = {paquete_high[1]}')
+    print(f'Total time {(paquete_high[1])+(paquete_low[1])}')
 if __name__ == "__main__":
     main()
